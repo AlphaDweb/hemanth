@@ -9,42 +9,48 @@ const CertificationsSection = () => {
       issuer: "Coursera - Stanford University",
       date: "March 2023",
       description: "Comprehensive training in machine learning algorithms and their applications.",
-      link: "https://coursera.org"
+      link: "https://coursera.org",
+      image: "https://place-hold.it/600x300/1A1F2C/FFFFFF&text=Machine%20Learning&fontsize=20"
     },
     {
       title: "Deep Learning Specialization",
       issuer: "Coursera - deeplearning.ai",
       date: "January 2023",
       description: "In-depth study of neural networks and deep learning architectures.",
-      link: "https://coursera.org"
+      link: "https://coursera.org",
+      image: "https://place-hold.it/600x300/1A1F2C/FFFFFF&text=Deep%20Learning&fontsize=20"
     },
     {
       title: "TensorFlow Developer Certificate",
       issuer: "Google",
       date: "November 2022",
       description: "Professional certification for building TensorFlow models.",
-      link: "https://tensorflow.org"
+      link: "https://tensorflow.org",
+      image: "https://place-hold.it/600x300/1A1F2C/FFFFFF&text=TensorFlow&fontsize=20"
     },
     {
       title: "Natural Language Processing",
       issuer: "edX - Microsoft",
       date: "August 2022",
       description: "Advanced techniques for processing and analyzing text data.",
-      link: "https://edx.org"
+      link: "https://edx.org",
+      image: "https://place-hold.it/600x300/1A1F2C/FFFFFF&text=NLP&fontsize=20"
     },
     {
       title: "Python for Data Science",
       issuer: "DataCamp",
       date: "May 2022",
       description: "Practical Python programming for data analysis and visualization.",
-      link: "https://datacamp.com"
+      link: "https://datacamp.com",
+      image: "https://place-hold.it/600x300/1A1F2C/FFFFFF&text=Python&fontsize=20"
     },
     {
       title: "AWS Machine Learning Foundations",
       issuer: "Amazon Web Services",
       date: "April 2022",
       description: "Fundamentals of deploying machine learning solutions on AWS.",
-      link: "https://aws.amazon.com"
+      link: "https://aws.amazon.com",
+      image: "https://place-hold.it/600x300/1A1F2C/FFFFFF&text=AWS%20ML&fontsize=20"
     }
   ];
 
@@ -66,31 +72,40 @@ const CertificationsSection = () => {
             {certifications.map((cert, index) => (
               <div 
                 key={index} 
-                className="group bg-[#1A1F2C] p-6 rounded-lg border border-white/5 hover:neon-border transition-all duration-300"
+                className="group bg-[#1A1F2C] rounded-lg overflow-hidden border border-white/5 hover:neon-border transition-all duration-300"
               >
-                <div className="flex flex-col h-full">
-                  <h3 className="text-lg font-bold text-white group-hover:text-neon-purple transition-colors duration-300">
-                    {cert.title}
-                  </h3>
-                  
-                  <div className="flex justify-between items-center mb-4">
-                    <p className="text-neon-blue text-sm">{cert.issuer}</p>
-                    <span className="text-white/50 text-xs">{cert.date}</span>
+                <div className="h-36 overflow-hidden">
+                  <img 
+                    src={cert.image} 
+                    alt={cert.title} 
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex flex-col h-full">
+                    <h3 className="text-lg font-bold text-white group-hover:text-neon-purple transition-colors duration-300">
+                      {cert.title}
+                    </h3>
+                    
+                    <div className="flex justify-between items-center mb-4">
+                      <p className="text-neon-blue text-sm">{cert.issuer}</p>
+                      <span className="text-white/50 text-xs">{cert.date}</span>
+                    </div>
+                    
+                    <p className="text-white/70 text-sm mb-6 flex-grow">
+                      {cert.description}
+                    </p>
+                    
+                    <a 
+                      href={cert.link} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-white/60 hover:text-neon-purple transition-all duration-300 text-sm mt-auto"
+                    >
+                      <span>View Certificate</span>
+                      <ExternalLink size={14} />
+                    </a>
                   </div>
-                  
-                  <p className="text-white/70 text-sm mb-6 flex-grow">
-                    {cert.description}
-                  </p>
-                  
-                  <a 
-                    href={cert.link} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-white/60 hover:text-neon-purple transition-all duration-300 text-sm mt-auto"
-                  >
-                    <span>View Certificate</span>
-                    <ExternalLink size={14} />
-                  </a>
                 </div>
               </div>
             ))}

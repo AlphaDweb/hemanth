@@ -20,13 +20,29 @@ const HeroSection = () => {
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+      {/* Background with image overlay */}
       <div className="absolute inset-0 z-0">
+        <img 
+          src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b" 
+          alt="Tech background" 
+          className="absolute inset-0 w-full h-full object-cover opacity-10"
+        />
+        <div className="absolute inset-0 bg-[#121212]/80"></div>
         <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-neon-purple/20 rounded-full filter blur-3xl"></div>
         <div className="absolute bottom-1/4 right-1/4 w-72 h-72 bg-neon-blue/20 rounded-full filter blur-3xl"></div>
       </div>
       
       <div className="container mx-auto px-4 z-10 py-16">
-        <div className="flex flex-col items-start justify-center max-w-3xl mx-auto">
+        {/* Profile image */}
+        <div className="flex flex-col items-center justify-center max-w-3xl mx-auto">
+          <div className="w-32 h-32 mb-8 rounded-full border-2 border-neon-purple overflow-hidden neon-border">
+            <img 
+              src="https://place-hold.it/300x300/1A1F2C/FFFFFF&text=H&fontsize=120" 
+              alt="Hemanth"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
           <div className="flex flex-col gap-4 text-center sm:text-left w-full">
             <span className="text-neon-purple text-lg opacity-0 -translate-y-4 animate-on-load transition-all duration-500 ease-out">
               Hello, I'm

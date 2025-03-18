@@ -9,21 +9,24 @@ const ExperienceSection = () => {
       company: "Tech Innovations Lab",
       period: "Jun 2023 - Aug 2023",
       description: "Worked on implementing machine learning algorithms for predictive analytics. Developed and optimized models using Python and TensorFlow. Collaborated with data scientists to improve model accuracy.",
-      skills: ["Python", "TensorFlow", "Data Analysis"]
+      skills: ["Python", "TensorFlow", "Data Analysis"],
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475"
     },
     {
       title: "Research Assistant",
       company: "University AI Research Lab",
       period: "Jan 2023 - May 2023",
       description: "Assisted in research on neural network architectures. Conducted literature reviews and implemented experimental models. Contributed to a paper on efficient training methods.",
-      skills: ["PyTorch", "Research", "Neural Networks"]
+      skills: ["PyTorch", "Research", "Neural Networks"],
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6"
     },
     {
       title: "Web Development Intern",
       company: "WebSolutions Inc.",
       period: "May 2022 - Jul 2022",
       description: "Developed responsive web applications using React. Implemented RESTful APIs and integrated with backend services. Worked in an agile development team.",
-      skills: ["React", "JavaScript", "RESTful APIs"]
+      skills: ["React", "JavaScript", "RESTful APIs"],
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d"
     }
   ];
 
@@ -62,6 +65,15 @@ const ExperienceSection = () => {
                     {/* Timeline content */}
                     <div className={`md:w-1/2 ${index % 2 === 0 ? 'md:pl-12' : 'md:pr-12'}`}>
                       <div className="bg-[#1A1F2C] p-6 rounded-lg border border-white/5 hover:neon-border-magenta transition-all duration-300">
+                        {/* Image */}
+                        <div className="h-40 rounded-md overflow-hidden mb-4">
+                          <img 
+                            src={exp.image} 
+                            alt={exp.title} 
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        
                         {/* Title and company */}
                         <div className="flex flex-col mb-3">
                           <h3 className="text-xl font-bold text-white">{exp.title}</h3>

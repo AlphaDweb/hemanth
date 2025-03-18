@@ -22,7 +22,7 @@ const ProjectsSection = () => {
       title: "Neural Network Visualizer",
       category: "machine-learning",
       description: "An interactive tool to visualize neural network architectures and training processes. Helps in understanding how deep learning models work.",
-      image: "https://place-hold.it/600x400/1A1F2C/FFFFFF&text=Neural%20Network%20Visualizer&fontsize=20",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop",
       technologies: ["Python", "TensorFlow", "D3.js", "Flask"],
       links: {
         demo: "https://example.com/demo1",
@@ -33,7 +33,7 @@ const ProjectsSection = () => {
       title: "Sentiment Analysis Platform",
       category: "nlp",
       description: "A web application that analyzes sentiment in text using natural language processing techniques. Can process reviews, social media posts, and other text content.",
-      image: "https://place-hold.it/600x400/1A1F2C/FFFFFF&text=Sentiment%20Analysis%20Platform&fontsize=20",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=500&fit=crop",
       technologies: ["Python", "NLTK", "SpaCy", "ReactJS", "Django"],
       links: {
         demo: "https://example.com/demo2",
@@ -44,7 +44,7 @@ const ProjectsSection = () => {
       title: "Object Detection System",
       category: "computer-vision",
       description: "Real-time object detection system using computer vision. Can identify and track multiple objects in video streams with high accuracy.",
-      image: "https://place-hold.it/600x400/1A1F2C/FFFFFF&text=Object%20Detection%20System&fontsize=20",
+      image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&h=500&fit=crop",
       technologies: ["Python", "OpenCV", "YOLO", "TensorFlow"],
       links: {
         github: "https://github.com/example/object-detector"
@@ -54,7 +54,7 @@ const ProjectsSection = () => {
       title: "Predictive Analytics Dashboard",
       category: "data-science",
       description: "A comprehensive dashboard for data visualization and predictive analytics. Uses machine learning to forecast trends and identify patterns.",
-      image: "https://place-hold.it/600x400/1A1F2C/FFFFFF&text=Predictive%20Analytics%20Dashboard&fontsize=20",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=800&h=500&fit=crop",
       technologies: ["Python", "Scikit-Learn", "D3.js", "React", "Flask"],
       links: {
         demo: "https://example.com/demo4",
@@ -65,7 +65,7 @@ const ProjectsSection = () => {
       title: "Smart Study Assistant",
       category: "application",
       description: "An AI-powered study assistant that helps students organize materials, create study plans, and generate quiz questions for effective learning.",
-      image: "https://place-hold.it/600x400/1A1F2C/FFFFFF&text=Smart%20Study%20Assistant&fontsize=20",
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=800&h=500&fit=crop",
       technologies: ["Python", "NLP", "React Native", "MongoDB"],
       links: {
         demo: "https://example.com/demo5",
@@ -76,7 +76,7 @@ const ProjectsSection = () => {
       title: "Healthcare Prediction Model",
       category: "machine-learning",
       description: "A machine learning model for predicting patient outcomes based on clinical data. Helps healthcare providers make informed decisions.",
-      image: "https://place-hold.it/600x400/1A1F2C/FFFFFF&text=Healthcare%20Prediction%20Model&fontsize=20",
+      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&h=500&fit=crop",
       technologies: ["Python", "Scikit-Learn", "XGBoost", "Pandas"],
       links: {
         github: "https://github.com/example/healthcare-ml"

@@ -37,7 +37,8 @@ const Index = () => {
       let current = '';
       
       sections.forEach(section => {
-        const sectionTop = section.offsetTop;
+        // Use getBoundingClientRect() instead of offsetTop
+        const sectionTop = section.getBoundingClientRect().top + window.scrollY;
         const sectionHeight = section.clientHeight;
         if (scrollY >= sectionTop - 200) {
           current = section.getAttribute('id') || '';
