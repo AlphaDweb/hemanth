@@ -1,17 +1,42 @@
-
 import React, { useRef, useEffect, useState } from 'react';
-import { Bot, Send, X, Minimize, Maximize } from 'lucide-react';
+import { Bot, Send, X, Minimize, Maximize, Mic, Volume2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import useAIChat from '@/hooks/useAIChat';
 
+// First define the interfaces
+interface SpeechRecognitionEvent extends Event {
+  results: SpeechRecognitionResultList;
+}
+
+interface SpeechRecognition extends EventTarget {
+  new (): SpeechRecognition;
+  start(): void;
+  stop(): void;
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onresult: (event: SpeechRecognitionEvent) => void;
+  onerror: (event: Event) => void;
+}
+
+// Then declare the global interface
+declare global {
+  interface Window {
+    SpeechRecognition: typeof SpeechRecognition;
+    webkitSpeechRecognition: typeof SpeechRecognition;
+  }
+}
+
 const AIAssistant = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [minimized, setMinimized] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [isListening, setIsListening] = useState(false);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
   
   const {
     messages,
@@ -29,10 +54,67 @@ const AIAssistant = () => {
     }
   }, [messages, isOpen, minimized]);
 
+  // Initialize speech recognition
+  useEffect(() => {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (SpeechRecognition) {
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      
+      recognition.onresult = async (event: SpeechRecognitionEvent) => {
+        const transcript = event.results[0][0].transcript;
+        setInputValue(transcript);
+        setIsListening(false);
+        
+        // Automatically send the message
+        if (transcript.trim() !== '') {
+          await sendMessage(transcript);
+          // Speak the last assistant message
+          const lastMessage = messages[messages.length - 1];
+          if (lastMessage?.role === 'assistant') {
+            speakResponse(lastMessage.content);
+          }
+        }
+      };
+
+      recognition.onerror = () => {
+        setIsListening(false);
+      };
+
+      recognitionRef.current = recognition;
+    }
+  }, [sendMessage, messages]);
+
+  const handleVoiceInput = () => {
+    if (isListening) {
+      recognitionRef.current?.stop();
+      setIsListening(false);
+    } else {
+      recognitionRef.current?.start();
+      setIsListening(true);
+    }
+  };
+
+  // Add text-to-speech for assistant responses
+  const speakResponse = (text: string) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1;
+    utterance.pitch = 1;
+    window.speechSynthesis.speak(utterance);
+  };
+
+  // Modify handleSubmit to include TTS
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (inputValue.trim() === '') return;
     await sendMessage(inputValue);
+    // Speak the last assistant message
+    const lastMessage = messages[messages.length - 1];
+    if (lastMessage?.role === 'assistant') {
+      speakResponse(lastMessage.content);
+    }
   };
 
   const toggleMinimize = () => {
@@ -120,13 +202,27 @@ const AIAssistant = () => {
               
               <div className="p-3 border-t border-neon-purple/20 bg-[#1A1A1A]">
                 <form onSubmit={handleSubmit} className="flex gap-2">
-                  <Input
-                    value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
-                    placeholder="Type your message..."
-                    className="bg-[#121212] border-neon-purple/20 text-white"
-                    disabled={isLoading}
-                  />
+                  <div className="relative flex-1">
+                    <Input
+                      value={inputValue}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      placeholder="Type or speak your message..."
+                      className="bg-[#121212] border-neon-purple/20 text-white pr-10"
+                      disabled={isLoading}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleVoiceInput}
+                      className={cn(
+                        "absolute right-2 top-1/2 -translate-y-1/2 p-1.5 rounded-full",
+                        "text-white/60 hover:text-white transition",
+                        isListening && "text-red-500 animate-pulse"
+                      )}
+                      aria-label={isListening ? "Stop listening" : "Start voice input"}
+                    >
+                      <Mic size={18} />
+                    </button>
+                  </div>
                   <Button 
                     type="submit" 
                     disabled={isLoading || inputValue.trim() === ''}
