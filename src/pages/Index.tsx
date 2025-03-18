@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import HeroSection from '@/components/HeroSection';
@@ -9,6 +8,7 @@ import ProjectsSection from '@/components/ProjectsSection';
 import CertificationsSection from '@/components/CertificationsSection';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
+import AIAssistant from '@/components/AIAssistant';
 
 const Index = () => {
   useEffect(() => {
@@ -73,6 +73,7 @@ const Index = () => {
         <ContactSection />
       </main>
       <Footer />
+      <AIAssistant />
     </div>
   );
 };
