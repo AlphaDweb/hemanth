@@ -4,7 +4,6 @@
  */
 
 interface GeminiRequestOptions {
-  apiKey: string;
   prompt: string;
   temperature?: number;
   maxTokens?: number;
@@ -18,8 +17,10 @@ interface GeminiResponse {
   error?: string;
 }
 
+// Pre-configured API key
+const GEMINI_API_KEY = "AIzaSyAp3zEskf6J18xNvs6qCD3Xq59ISt5tRIQ";
+
 export const generateGeminiResponse = async ({
-  apiKey,
   prompt,
   temperature = 0.7,
   maxTokens = 1024,
@@ -27,11 +28,10 @@ export const generateGeminiResponse = async ({
   topP = 0.95,
 }: GeminiRequestOptions): Promise<GeminiResponse> => {
   try {
-    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent', {
+    const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + GEMINI_API_KEY, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-goog-api-key': apiKey,
       },
       body: JSON.stringify({
         contents: [

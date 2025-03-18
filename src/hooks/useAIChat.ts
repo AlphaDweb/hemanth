@@ -23,43 +23,12 @@ export const useAIChat = (options?: UseAIChatOptions) => {
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [showApiInput, setShowApiInput] = useState(true);
 
   const systemPrompt = options?.initialSystemPrompt || 
     "You are Hemanth's AI assistant on his portfolio website. You help visitors learn about Hemanth, who is a Computer Science Engineering student specializing in AI, Machine Learning, and Deep Learning. Always be helpful, concise, and professional.";
 
-  // Check for saved API key on mount
-  useEffect(() => {
-    const savedApiKey = localStorage.getItem('gemini_api_key');
-    if (savedApiKey) {
-      setApiKey(savedApiKey);
-      setShowApiInput(false);
-    }
-  }, []);
-
-  const saveApiKey = (key: string) => {
-    if (key.trim().length > 0) {
-      setApiKey(key);
-      localStorage.setItem('gemini_api_key', key);
-      setShowApiInput(false);
-      toast.success('API key saved successfully');
-      return true;
-    } else {
-      toast.error('Please enter a valid API key');
-      return false;
-    }
-  };
-
-  const removeApiKey = () => {
-    localStorage.removeItem('gemini_api_key');
-    setApiKey('');
-    setShowApiInput(true);
-    toast.success('API key removed');
-  };
-
   const sendMessage = async (userMessage: string) => {
-    if (!apiKey || userMessage.trim() === '') return;
+    if (userMessage.trim() === '') return;
     
     // Add user message to chat
     const newUserMessage: Message = {
@@ -78,7 +47,6 @@ export const useAIChat = (options?: UseAIChatOptions) => {
       
       // Call Gemini API
       const response = await generateGeminiResponse({
-        apiKey,
         prompt: fullPrompt
       });
       
@@ -101,7 +69,7 @@ export const useAIChat = (options?: UseAIChatOptions) => {
         ...prev, 
         { 
           role: 'assistant', 
-          content: 'Sorry, I encountered an error. Please check your API key or try again later.', 
+          content: 'Sorry, I encountered an error. Please try again later.', 
           timestamp: new Date() 
         }
       ]);
@@ -125,13 +93,8 @@ export const useAIChat = (options?: UseAIChatOptions) => {
     inputValue,
     setInputValue,
     isLoading,
-    showApiInput,
-    apiKey,
-    setApiKey,
     sendMessage,
-    resetChat,
-    saveApiKey,
-    removeApiKey
+    resetChat
   };
 };
 
